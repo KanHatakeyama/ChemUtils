@@ -6,6 +6,7 @@ import pandas as pd
 from tkinter import messagebox
 from openpyxl import load_workbook
 from .ChemGraph import export_html
+from .MolDraw import df_to_html
 
 settings = SaveSettings()
 
@@ -34,41 +35,49 @@ class GraphTab(tk.Frame):
         self.create_custom_widgets()
 
     def create_custom_widgets(self):
-        label = tk.Label(
-            self, text=f'Select SMILES column', font=('Arial', 12))
-        label.pack()
-
+        # export graph
         self.combo_dict = {}
 
         columns = list(self.master.df.columns)
         for c in graph_setting_list:
-
-            label = tk.Label(
-                self, text=f'Select {c}', font=('Arial', 12))
+            label = tk.Label(self, text=f"Select {c}", font=("Arial", 12))
             label.pack()
 
-            combo = ttk.Combobox(
-                self, values=columns, state='readonly')
+            combo = ttk.Combobox(self, values=columns, state="readonly")
             combo.set(columns[0])
             combo.pack()
 
             self.combo_dict[c] = combo
 
         self.load_button = tk.Button(
-            self, text="Generate graph", command=self.on_button_click_load)
+            self, text="Generate graph", command=self.on_button_click_load
+        )
         self.load_button.pack()
+
+        # export table
+        label = tk.Label(self, text=f"\n Generate Table", font=("Arial", 12))
+        label.pack()
+        self.combo_s = ttk.Combobox(self, values=columns, state="readonly")
+        self.combo_s.set(columns[0])
+        self.combo_s.pack()
+
+        self.table_button = tk.Button(
+            self,
+            text="Generate table",
+            command=self.generate_table,
+        )
+        self.table_button.pack()
 
     def on_button_click_load(self):
         try:
             self.generate_graph()
-            messagebox.showinfo(
-                "success", "Graph generated successfully!")
+            messagebox.showinfo("success", "Graph generated successfully!")
 
         except Exception as e:
-            messagebox.showinfo("error", "Load error"+str(e))
+            messagebox.showinfo("error", "error" + str(e))
 
     def generate_graph(self):
-        file_path = filedialog.asksaveasfilename(defaultextension='.html')
+        file_path = filedialog.asksaveasfilename(defaultextension=".html")
 
         if file_path:
             export_html(
@@ -79,3 +88,17 @@ class GraphTab(tk.Frame):
                 self.combo_dict["SMILES"].get(),
                 file_path,
             )
+
+    def generate_table(self):
+        try:
+            # if True:
+            file_path = filedialog.asksaveasfilename(defaultextension=".html")
+            if file_path:
+                html = df_to_html(self.master.df, self.combo_s.get())
+                # htmlの書き出し
+                with open(file_path, "w") as f:
+                    f.write(html)
+
+            messagebox.showinfo("success", "Table generated successfully!")
+        except Exception as e:
+            messagebox.showinfo("error", "error" + str(e))

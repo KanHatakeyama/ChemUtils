@@ -13,7 +13,6 @@ class NoteBook(ttk.Notebook):
         self.create_widgets()
 
     def create_widgets(self):
-
         # ファイルパスの選択
         self.load_tab = LoadTab(master=self)
         self.add(self.load_tab, text="Load excel", underline=0)
@@ -24,15 +23,15 @@ class NoteBook(ttk.Notebook):
 
         # グラフ作製
         self.graph_tab = GraphTab(master=self)
-        self.add(self.graph_tab, text="Graph", underline=0)
-        self.pack(expand=True, fill='both', padx=10, pady=10)
+        self.add(self.graph_tab, text="Graph & Table", underline=0)
+        self.pack(expand=True, fill="both", padx=10, pady=10)
 
-        self.tab(1, state='disabled')
-        self.tab(2, state='disabled')
+        self.tab(1, state="disabled")
+        self.tab(2, state="disabled")
 
     def unlock_tabs(self):
-        self.tab(1, state='normal')
+        self.tab(1, state="normal")
         self.descriptor_tab.refresh_widgets()
 
-        self.tab(2, state='normal')
+        self.tab(2, state="normal")
         self.graph_tab.refresh_widgets()
