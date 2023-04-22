@@ -2,9 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from .SaveSettings import SaveSettings
-import pandas as pd
 from tkinter import messagebox
-from openpyxl import load_workbook
 from .ChemGraph import export_html
 from .MolDraw import df_to_html
 
