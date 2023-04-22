@@ -89,6 +89,7 @@ class DescriptorTab(tk.Frame):
         smiles_list = list(self.master.df[self.combo.get()].values)
 
         # replace repeat units
+        smiles_list = [smiles.replace("[*]", "[H]") for smiles in smiles_list]
         smiles_list = [smiles.replace("*", "[H]") for smiles in smiles_list]
 
         desc_df = calculator(smiles_list)
