@@ -20,7 +20,7 @@ settings = SaveSettings()
 
 descriptor_algorithm_dict = {
     "rdkit": RDKitDescriptors(),
-    "valonFP": Fingerprint(),
+    "AvalonFP": Fingerprint(),
     # "mordred2d": MordredDescriptor(),
     "GroupContribution": GroupContMethod(),
     "3D structure factor": StructureFactor(),
@@ -82,11 +82,20 @@ class DescriptorTab(tk.Frame):
         descriptor_algorithms = []
         for i in selected_items:
             descriptor_algorithms.append(descriptor_algorithm_dict[self.listbox.get(i)])
+            print(self.listbox.get(i))
 
+        print("algorithms", descriptor_algorithms)
         calculator = AutoDescriptor(calculators=descriptor_algorithms)
-        smiles_list = self.master.df[self.combo.get()].tolist()
+        smiles_list = list(self.master.df[self.combo.get()].values)
+
+        # replace repeat units
+        smiles_list = [smiles.replace("*", "[H]") for smiles in smiles_list]
+
         desc_df = calculator(smiles_list)
         self.integ_df = pd.concat([self.master.df, desc_df], axis=1)
+
+        # 重複する列名を削除
+        self.integ_df = self.integ_df.loc[:, ~self.integ_df.columns.duplicated()]
 
         self.save_file()
 

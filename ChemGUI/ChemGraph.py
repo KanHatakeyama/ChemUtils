@@ -19,13 +19,18 @@ def export_html(df, x_w, y_w, label_w, smiles_w, filename="out.html"):
     sel_df = df[df[x_w] == df[x_w]]
     sel_df = sel_df[sel_df[y_w] == sel_df[y_w]]
 
+    smiles_list = list(sel_df[smiles_w].values)  # .tolist()
+    print(smiles_list)
+    # smiles_list = [smiles.replace("*", "[H]") for smiles in smiles_list]
+    # sel_df[smiles_w] = smiles_list
+    print(sel_df)
     source = ColumnDataSource(
         data=dict(
             x=sel_df[x_w].astype(float),
             y=sel_df[y_w].astype(float),
             label=sel_df[label_w],
             svg=[make_svg(i) for i in sel_df[smiles_w]],
-            SMILES=sel_df[smiles_w],
+            SMILES=smiles_list,
         )
     )
 

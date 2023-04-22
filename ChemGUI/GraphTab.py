@@ -73,12 +73,13 @@ class GraphTab(tk.Frame):
         self.table_button.pack()
 
     def on_button_click_load(self):
-        try:
+        # try:
+        if True:
             self.generate_graph()
             messagebox.showinfo("success", "Graph generated successfully!")
 
-        except Exception as e:
-            messagebox.showinfo("error", "error" + str(e))
+        # except Exception as e:
+        #    messagebox.showinfo("error", "error" + str(e))
 
     def generate_graph(self):
         file_path = filedialog.asksaveasfilename(defaultextension=".html")
