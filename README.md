@@ -15,4 +15,4 @@
     pyinstaller main.py --noconsole --copy-metadata bokeh
 
 ## Issues
-- Table data generation by [Mol2Grid](https://mols2grid.readthedocs.io/en/latest/contents.html#usage) would fail. You can instead access function via e.g, [KNIME](https://www.knime.com/) (`Interactive Grid of Molecules`).
+- Table data generation by [Mol2Grid](https://mols2grid.readthedocs.io/en/latest/contents.html#usage) would fail. You can instead access function via e.g, jupyter notebook or [KNIME](https://www.knime.com/) (`Interactive Grid of Molecules`).
