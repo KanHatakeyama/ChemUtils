@@ -8,7 +8,7 @@
 ## For Python users
 - python main.py
 ## For Windows users
-- Download the executable program [Here]() and Run main.exe
+- Download the executable program [Here](https://drive.google.com/file/d/1SJUJObD2E6iOp4gNKf70EJ3XIxNMJLSP/view?usp=sharing) and Run main.exe
 ## For Mac users
 - Ask someone to make the executable program
     e.g.,
