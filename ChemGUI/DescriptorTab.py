@@ -6,7 +6,12 @@ import pandas as pd
 from tkinter import messagebox
 
 
-from .calculators.Autodescriptor import RDKitDescriptors, Fingerprint, GroupContMethod
+from .calculators.Autodescriptor import (
+    RDKitDescriptors,
+    Fingerprint,
+    GroupContMethod,
+    AutoDescriptor,
+)
 from .calculators.StructureFactor import StructureFactor
 
 

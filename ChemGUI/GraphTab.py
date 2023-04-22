@@ -55,6 +55,12 @@ class GraphTab(tk.Frame):
         # export table
         label = tk.Label(self, text=f"\n Generate Table", font=("Arial", 12))
         label.pack()
+        label = tk.Label(
+            self,
+            text=f"#NOTE: This would fail unless this program is called by juptyter notebook",
+            font=("Arial", 12),
+        )
+        label.pack()
         self.combo_s = ttk.Combobox(self, values=columns, state="readonly")
         self.combo_s.set(columns[0])
         self.combo_s.pack()

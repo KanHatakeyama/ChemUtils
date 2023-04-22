@@ -3,6 +3,14 @@
 from ChemGUI.Notebook import NoteBook
 import tkinter as tk
 
+# 解像度をup
+import ctypes
+
+try:
+    ctypes.windll.shcore.SetProcessDpiAwareness(True)
+except:
+    pass
+
 
 root = tk.Tk()
 notebook = NoteBook(root)
