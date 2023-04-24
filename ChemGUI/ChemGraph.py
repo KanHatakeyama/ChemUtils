@@ -19,8 +19,10 @@ def export_html(df, x_w, y_w, label_w, smiles_w, filename="out.html"):
     sel_df = df[df[x_w] == df[x_w]]
     sel_df = sel_df[sel_df[y_w] == sel_df[y_w]]
 
+    sel_df[smiles_w] = sel_df[smiles_w].fillna("C")
     smiles_list = list(sel_df[smiles_w].values)  # .tolist()
     print(smiles_list)
+
     # smiles_list = [smiles.replace("*", "[H]") for smiles in smiles_list]
     # sel_df[smiles_w] = smiles_list
     print(sel_df)
