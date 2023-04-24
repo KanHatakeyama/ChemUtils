@@ -47,6 +47,14 @@ class GraphTab(tk.Frame):
 
             self.combo_dict[c] = combo
 
+        label = tk.Label(self, text=f"Fill missing values with", font=("Arial", 12))
+        label.pack()
+
+        # 数値の入力欄
+        self.entry = tk.Entry(self)
+        self.entry.insert(tk.END, "")
+        self.entry.pack()
+
         self.load_button = tk.Button(
             self, text="Generate graph", command=self.on_button_click_load
         )
@@ -85,6 +93,12 @@ class GraphTab(tk.Frame):
         file_path = filedialog.asksaveasfilename(defaultextension=".html")
 
         if file_path:
+            fill_val = self.entry.get()
+            try:
+                fill_val = float(fill_val)
+            except:
+                fill_val = None
+
             export_html(
                 self.master.df,
                 self.combo_dict["x"].get(),
@@ -92,6 +106,7 @@ class GraphTab(tk.Frame):
                 self.combo_dict["color"].get(),
                 self.combo_dict["SMILES"].get(),
                 file_path,
+                fill_val=fill_val,
             )
 
     def generate_table(self):

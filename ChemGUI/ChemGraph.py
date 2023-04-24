@@ -10,25 +10,44 @@ scale_slider = 1
 
 
 def make_svg(smiles: str):  # return SVG str from SMILES str
-    x = rdMolDraw2D.MolDraw2DSVG(100 * scale_slider, 100 * scale_slider)
-    x.DrawMolecule(Chem.MolFromSmiles(smiles))
+    x = rdMolDraw2D.MolDraw2DSVG(300 * scale_slider, 300 * scale_slider)
+    try:
+        x.DrawMolecule(Chem.MolFromSmiles(smiles))
+    except:
+        x.DrawMolecule(Chem.MolFromSmiles("C"))
+
     x.FinishDrawing()
     return x.GetDrawingText()
 
 
-def export_html(df, x_w, y_w, label_w, smiles_w, filename="out.html"):
+def export_html(
+    df,
+    x_w,
+    y_w,
+    label_w,
+    smiles_w,
+    filename="out.html",
+    fill_val=None,
+):
     df[x_w] = pd.to_numeric(df[x_w], errors="coerce")
     df[y_w] = pd.to_numeric(df[y_w], errors="coerce")
-    sel_df = df[df[x_w] == df[x_w]]
-    sel_df = sel_df[sel_df[y_w] == sel_df[y_w]]
+
+    if fill_val is None:
+        sel_df = df[df[x_w] == df[x_w]]
+        sel_df = sel_df[sel_df[y_w] == sel_df[y_w]]
+    else:
+        sel_df = df
+        sel_df[x_w] = sel_df[x_w].fillna(fill_val)
+        sel_df[y_w] = sel_df[y_w].fillna(fill_val)
 
     sel_df[smiles_w] = sel_df[smiles_w].fillna("C")
     smiles_list = list(sel_df[smiles_w].values)  # .tolist()
-    # print(smiles_list)
 
-    # smiles_list = [smiles.replace("*", "[H]") for smiles in smiles_list]
-    # sel_df[smiles_w] = smiles_list
     # print(sel_df)
+    # generate mol objects
+    # mols = [Chem.MolFromSmiles(i) for i in sel_df[smiles_w]]
+    # smiles_list = [sm for sm, mol in zip(smiles_list, mols) if mol is not None]
+
     source = ColumnDataSource(
         data=dict(
             x=sel_df[x_w].astype(float),
