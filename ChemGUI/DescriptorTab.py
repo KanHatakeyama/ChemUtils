@@ -85,6 +85,10 @@ class DescriptorTab(tk.Frame):
             print(self.listbox.get(i))
 
         print("algorithms", descriptor_algorithms)
+
+        if len(descriptor_algorithms) == 0:
+            raise Exception("No descriptor selected")
+
         calculator = AutoDescriptor(calculators=descriptor_algorithms)
         smiles_list = list(self.master.df[self.combo.get()].values)
 

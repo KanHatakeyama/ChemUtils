@@ -57,7 +57,7 @@ class GraphTab(tk.Frame):
         label.pack()
         label = tk.Label(
             self,
-            text=f"#NOTE: This would fail unless this program is called by juptyter notebook",
+            text=f"",
             font=("Arial", 12),
         )
         label.pack()
@@ -99,10 +99,7 @@ class GraphTab(tk.Frame):
             # if True:
             file_path = filedialog.asksaveasfilename(defaultextension=".html")
             if file_path:
-                html = df_to_html(self.master.df, self.combo_s.get())
-                # htmlの書き出し
-                with open(file_path, "w") as f:
-                    f.write(html)
+                df_to_html(self.master.df, self.combo_s.get(), file_path=file_path)
 
             messagebox.showinfo("success", "Table generated successfully!")
         except Exception as e:
