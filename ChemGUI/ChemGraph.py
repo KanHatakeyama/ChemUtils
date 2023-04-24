@@ -4,6 +4,7 @@ from rdkit.Chem.Draw import rdMolDraw2D
 from bokeh import transform
 from bokeh.models import ColorBar
 from bokeh.io import save
+import pandas as pd
 
 scale_slider = 1
 
@@ -16,16 +17,18 @@ def make_svg(smiles: str):  # return SVG str from SMILES str
 
 
 def export_html(df, x_w, y_w, label_w, smiles_w, filename="out.html"):
+    df[x_w] = pd.to_numeric(df[x_w], errors="coerce")
+    df[y_w] = pd.to_numeric(df[y_w], errors="coerce")
     sel_df = df[df[x_w] == df[x_w]]
     sel_df = sel_df[sel_df[y_w] == sel_df[y_w]]
 
     sel_df[smiles_w] = sel_df[smiles_w].fillna("C")
     smiles_list = list(sel_df[smiles_w].values)  # .tolist()
-    print(smiles_list)
+    # print(smiles_list)
 
     # smiles_list = [smiles.replace("*", "[H]") for smiles in smiles_list]
     # sel_df[smiles_w] = smiles_list
-    print(sel_df)
+    # print(sel_df)
     source = ColumnDataSource(
         data=dict(
             x=sel_df[x_w].astype(float),
