@@ -8,7 +8,7 @@
 ## For Python users
 - python main.py
 ## For Windows users
-- Download the executable program [Here](https://drive.google.com/file/d/1feXVczJcgr_wdvjq9rQ0L8o_jT5PRW2v/view?usp=share_link) and Run main.exe
+- Download the executable program [Here](https://drive.google.com/file/d/1qxj668RCOCYd-RN3uakE3oMreexGt6pR/view?usp=sharing) and Run main.exe
 ## For Mac users
 - Ask someone to make the executable program
     e.g.,
@@ -19,3 +19,4 @@
 
 ## Updates
 - 20230424: Fix table output bug
+- 20230425: Fix small bugs, fill nan
